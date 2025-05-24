@@ -23,20 +23,17 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Install @vscode/vsce if not available
-if ! command -v vsce &> /dev/null; then
-    echo "📥 Installing @vscode/vsce..."
-    npm install -g @vscode/vsce
-fi
-
-# Package the extension
+# Package the extension using npx
 echo "📦 Packaging extension..."
-vsce package
+npx @vscode/vsce package --yes
 
 if [ $? -eq 0 ]; then
     echo "✅ Extension packaged successfully!"
     echo "🎉 Install with: code --install-extension $(ls *.vsix | head -1)"
     echo "📱 Or drag the .vsix file into Cursor IDE!"
+    echo ""
+    echo "📦 Generated file: $(ls *.vsix | head -1)"
+    echo "📁 Location: $(pwd)/$(ls *.vsix | head -1)"
 else
     echo "❌ Packaging failed!"
     exit 1

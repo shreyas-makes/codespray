@@ -30,24 +30,24 @@ const qrcode_1 = require("./qrcode");
 let server;
 let statusBarItem;
 function activate(context) {
-    console.log('Cursor Remote extension is now active!');
+    console.log('Codespray extension is now active!');
     // Create status bar item
     statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
-    statusBarItem.text = "$(globe) Cursor Remote";
-    statusBarItem.tooltip = "Click to manage Cursor Remote";
-    statusBarItem.command = 'cursorRemote.showMenu';
+    statusBarItem.text = "$(globe) Codespray";
+    statusBarItem.tooltip = "Click to manage Codespray";
+    statusBarItem.command = 'codespray.showMenu';
     statusBarItem.show();
     // Register commands
     const commands = [
-        vscode.commands.registerCommand('cursorRemote.start', startServer),
-        vscode.commands.registerCommand('cursorRemote.stop', stopServer),
-        vscode.commands.registerCommand('cursorRemote.openBrowser', openBrowser),
-        vscode.commands.registerCommand('cursorRemote.showQR', showQRCode),
-        vscode.commands.registerCommand('cursorRemote.showMenu', showMenu)
+        vscode.commands.registerCommand('codespray.start', startServer),
+        vscode.commands.registerCommand('codespray.stop', stopServer),
+        vscode.commands.registerCommand('codespray.openBrowser', openBrowser),
+        vscode.commands.registerCommand('codespray.showQR', showQRCode),
+        vscode.commands.registerCommand('codespray.showMenu', showMenu)
     ];
     context.subscriptions.push(statusBarItem, ...commands);
     // Auto-start if enabled
-    const config = vscode.workspace.getConfiguration('cursorRemote');
+    const config = vscode.workspace.getConfiguration('codespray');
     if (config.get('autoStart')) {
         startServer();
     }
@@ -55,19 +55,19 @@ function activate(context) {
 exports.activate = activate;
 async function startServer() {
     if (server && server.isRunning()) {
-        vscode.window.showInformationMessage('Cursor Remote server is already running!');
+        vscode.window.showInformationMessage('Codespray server is already running!');
         return;
     }
     try {
-        const config = vscode.workspace.getConfiguration('cursorRemote');
+        const config = vscode.workspace.getConfiguration('codespray');
         const port = config.get('port') || 8080;
         const enableAuth = config.get('enableAuth') || true;
         server = new server_1.RemoteServer(port, enableAuth);
         await server.start();
-        statusBarItem.text = `$(globe) Remote: ${port}`;
+        statusBarItem.text = `$(globe) Codespray: ${port}`;
         statusBarItem.backgroundColor = new vscode.ThemeColor('statusBarItem.prominentBackground');
         const url = `http://localhost:${port}`;
-        const action = await vscode.window.showInformationMessage(`Cursor Remote started on port ${port}`, 'Open Browser', 'Show QR Code');
+        const action = await vscode.window.showInformationMessage(`Codespray started on port ${port}`, 'Open Browser', 'Show QR Code');
         if (action === 'Open Browser') {
             openBrowser();
         }
@@ -76,27 +76,27 @@ async function startServer() {
         }
     }
     catch (error) {
-        vscode.window.showErrorMessage(`Failed to start Cursor Remote: ${error}`);
+        vscode.window.showErrorMessage(`Failed to start Codespray: ${error}`);
     }
 }
 async function stopServer() {
     if (!server || !server.isRunning()) {
-        vscode.window.showInformationMessage('Cursor Remote server is not running!');
+        vscode.window.showInformationMessage('Codespray server is not running!');
         return;
     }
     try {
         await server.stop();
-        statusBarItem.text = "$(globe) Cursor Remote";
+        statusBarItem.text = "$(globe) Codespray";
         statusBarItem.backgroundColor = undefined;
-        vscode.window.showInformationMessage('Cursor Remote server stopped');
+        vscode.window.showInformationMessage('Codespray server stopped');
     }
     catch (error) {
-        vscode.window.showErrorMessage(`Failed to stop Cursor Remote: ${error}`);
+        vscode.window.showErrorMessage(`Failed to stop Codespray: ${error}`);
     }
 }
 async function openBrowser() {
     if (!server || !server.isRunning()) {
-        vscode.window.showErrorMessage('Cursor Remote server is not running!');
+        vscode.window.showErrorMessage('Codespray server is not running!');
         return;
     }
     const open = require('open');
@@ -105,7 +105,7 @@ async function openBrowser() {
 }
 async function showQRCode() {
     if (!server || !server.isRunning()) {
-        vscode.window.showErrorMessage('Cursor Remote server is not running!');
+        vscode.window.showErrorMessage('Codespray server is not running!');
         return;
     }
     const qrGenerator = new qrcode_1.QRCodeGenerator();
@@ -140,7 +140,7 @@ async function showMenu() {
             showQRCode();
             break;
         case 'Settings':
-            vscode.commands.executeCommand('workbench.action.openSettings', 'cursorRemote');
+            vscode.commands.executeCommand('workbench.action.openSettings', 'codespray');
             break;
     }
 }

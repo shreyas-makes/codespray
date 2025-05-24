@@ -1,6 +1,6 @@
-# Cursor Remote 📱
+# Codespray 📱
 
-Transform your mobile device into a powerful coding companion for Cursor IDE! Cursor Remote enables you to code, edit files, and run terminal commands directly from your phone or tablet.
+Transform your mobile device into a powerful coding companion for Cursor IDE! Codespray enables you to code, edit files, and run terminal commands directly from your phone or tablet.
 
 ## Features
 
@@ -35,14 +35,14 @@ Transform your mobile device into a powerful coding companion for Cursor IDE! Cu
 ### Method 1: VS Code Marketplace (Coming Soon)
 1. Open Cursor IDE
 2. Go to Extensions (Ctrl+Shift+X)
-3. Search for "Cursor Remote"
+3. Search for "Codespray"
 4. Click Install
 
 ### Method 2: Manual Installation
 1. Clone this repository:
    ```bash
-   git clone https://github.com/cursor-remote/cursor-remote.git
-   cd cursor-remote
+   git clone https://github.com/shreyas-makes/codespray.git
+   cd codespray
    ```
 
 2. Install dependencies:
@@ -70,11 +70,11 @@ Transform your mobile device into a powerful coding companion for Cursor IDE! Cu
 
 1. **Start the Server**
    - Open Command Palette (Ctrl+Shift+P)
-   - Run "Cursor Remote: Start Server"
+   - Run "Codespray: Start Server"
    - The server will start on port 8080 (configurable)
 
 2. **Connect Your Mobile Device**
-   - Run "Cursor Remote: Show QR Code"
+   - Run "Codespray: Show QR Code"
    - Scan the QR code with your phone's camera
    - Open the link in your mobile browser
 
@@ -90,10 +90,10 @@ Access settings through VS Code preferences or the command palette:
 
 ```json
 {
-  "cursorRemote.port": 8080,
-  "cursorRemote.autoStart": false,
-  "cursorRemote.enableAuth": true,
-  "cursorRemote.theme": "dark"
+  "codespray.port": 8080,
+  "codespray.autoStart": false,
+  "codespray.enableAuth": true,
+  "codespray.theme": "dark"
 }
 ```
 
@@ -126,14 +126,14 @@ Access settings through VS Code preferences or the command palette:
 
 All commands are available through the Command Palette (Ctrl+Shift+P):
 
-- `Cursor Remote: Start Server` - Start the remote server
-- `Cursor Remote: Stop Server` - Stop the remote server
-- `Cursor Remote: Open Mobile Interface` - Open in browser
-- `Cursor Remote: Show QR Code` - Display connection QR code
+- `Codespray: Start Server` - Start the remote server
+- `Codespray: Stop Server` - Stop the remote server
+- `Codespray: Open Mobile Interface` - Open in browser
+- `Codespray: Show QR Code` - Display connection QR code
 
 ## Supported Languages
 
-Cursor Remote provides syntax highlighting and basic IntelliSense for:
+Codespray provides syntax highlighting and basic IntelliSense for:
 
 - JavaScript/TypeScript
 - Python
@@ -177,7 +177,7 @@ Cursor Remote provides syntax highlighting and basic IntelliSense for:
 ### File Not Updating
 1. Check network connection
 2. Refresh the mobile page
-3. Restart the Cursor Remote server
+3. Restart the Codespray server
 4. Ensure file permissions are correct
 
 ## Contributing
@@ -195,7 +195,7 @@ We welcome contributions! Please feel free to submit issues and pull requests.
 ### Architecture
 
 ```
-cursor-remote/
+codespray/
 ├── src/                 # TypeScript source files
 │   ├── extension.ts     # Main extension entry point
 │   ├── server.ts        # Express server and API
@@ -226,10 +226,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/cursor-remote/cursor-remote/issues)
-- 💡 **Feature Requests**: [GitHub Discussions](https://github.com/cursor-remote/cursor-remote/discussions)
-- 📧 **Email**: cursor-remote@example.com
-- 💬 **Discord**: [Join our community](https://discord.gg/cursor-remote)
+- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/shreyas-makes/codespray/issues)
+- �� **Feature Requests**: [GitHub Discussions](https://github.com/shreyas-makes/codespray/discussions)
+- 📧 **Email**: codespray@example.com
+- 💬 **Discord**: [Join our community](https://discord.gg/codespray)
 
 ## Acknowledgments
 

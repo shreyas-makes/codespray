@@ -39,7 +39,7 @@ class QRCodeGenerator {
                 }
             });
             // Create and show webview panel
-            const panel = vscode.window.createWebviewPanel('cursorRemoteQR', 'Cursor Remote - QR Code', vscode.ViewColumn.Beside, {
+            const panel = vscode.window.createWebviewPanel('codesprayQR', 'Codespray - QR Code', vscode.ViewColumn.Beside, {
                 enableScripts: true,
                 retainContextWhenHidden: true
             });
@@ -56,7 +56,7 @@ class QRCodeGenerator {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Cursor Remote QR Code</title>
+            <title>Codespray QR Code</title>
             <style>
                 body {
                     font-family: var(--vscode-font-family);
@@ -114,7 +114,7 @@ class QRCodeGenerator {
         </head>
         <body>
             <div class="container">
-                <h1>📱 Cursor Remote</h1>
+                <h1>📱 Codespray</h1>
                 <p>Scan this QR code with your phone to access the mobile coding interface:</p>
                 
                 <div class="qr-code">

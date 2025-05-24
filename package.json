@@ -1,17 +1,17 @@
 {
-  "name": "cursor-remote",
-  "displayName": "Cursor Remote",
+  "name": "codespray",
+  "displayName": "Codespray",
   "description": "Enable mobile coding with Cursor IDE - code from your phone with ease",
   "version": "1.0.0",
-  "publisher": "cursor-remote",
+  "publisher": "shreyas-makes",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cursor-remote/cursor-remote.git"
+    "url": "https://github.com/shreyas-makes/codespray.git"
   },
   "bugs": {
-    "url": "https://github.com/cursor-remote/cursor-remote/issues"
+    "url": "https://github.com/shreyas-makes/codespray/issues"
   },
-  "homepage": "https://github.com/cursor-remote/cursor-remote#readme",
+  "homepage": "https://github.com/shreyas-makes/codespray#readme",
   "engines": {
     "vscode": "^1.74.0"
   },
@@ -28,51 +28,56 @@
     "web"
   ],
   "activationEvents": [
-    "onStartupFinished"
+    "*"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "cursorRemote.start",
-        "title": "Start Cursor Remote Server",
-        "category": "Cursor Remote"
+        "command": "codespray.start",
+        "title": "Start Codespray Server",
+        "category": "Codespray"
       },
       {
-        "command": "cursorRemote.stop",
-        "title": "Stop Cursor Remote Server",
-        "category": "Cursor Remote"
+        "command": "codespray.stop",
+        "title": "Stop Codespray Server",
+        "category": "Codespray"
       },
       {
-        "command": "cursorRemote.openBrowser",
+        "command": "codespray.openBrowser",
         "title": "Open Mobile Interface",
-        "category": "Cursor Remote"
+        "category": "Codespray"
       },
       {
-        "command": "cursorRemote.showQR",
+        "command": "codespray.showQR",
         "title": "Show QR Code",
-        "category": "Cursor Remote"
+        "category": "Codespray"
+      },
+      {
+        "command": "codespray.showMenu",
+        "title": "Show Codespray Menu",
+        "category": "Codespray"
       }
     ],
     "configuration": {
-      "title": "Cursor Remote",
+      "title": "Codespray",
       "properties": {
-        "cursorRemote.port": {
+        "codespray.port": {
           "type": "number",
           "default": 8080,
           "description": "Port for the remote server"
         },
-        "cursorRemote.autoStart": {
+        "codespray.autoStart": {
           "type": "boolean",
           "default": false,
           "description": "Automatically start server when Cursor opens"
         },
-        "cursorRemote.enableAuth": {
+        "codespray.enableAuth": {
           "type": "boolean",
           "default": true,
           "description": "Enable authentication for remote access"
         },
-        "cursorRemote.theme": {
+        "codespray.theme": {
           "type": "string",
           "enum": [
             "dark",
@@ -87,16 +92,19 @@
     "menus": {
       "commandPalette": [
         {
-          "command": "cursorRemote.start"
+          "command": "codespray.start"
         },
         {
-          "command": "cursorRemote.stop"
+          "command": "codespray.stop"
         },
         {
-          "command": "cursorRemote.openBrowser"
+          "command": "codespray.openBrowser"
         },
         {
-          "command": "cursorRemote.showQR"
+          "command": "codespray.showQR"
+        },
+        {
+          "command": "codespray.showMenu"
         }
       ]
     }
