@@ -1,0 +1,127 @@
+{
+  "name": "cursor-remote",
+  "displayName": "Cursor Remote",
+  "description": "Enable mobile coding with Cursor IDE - code from your phone with ease",
+  "version": "1.0.0",
+  "publisher": "cursor-remote",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cursor-remote/cursor-remote.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cursor-remote/cursor-remote/issues"
+  },
+  "homepage": "https://github.com/cursor-remote/cursor-remote#readme",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other",
+    "Extension Packs"
+  ],
+  "keywords": [
+    "mobile",
+    "remote",
+    "coding",
+    "phone",
+    "cursor",
+    "web"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "cursorRemote.start",
+        "title": "Start Cursor Remote Server",
+        "category": "Cursor Remote"
+      },
+      {
+        "command": "cursorRemote.stop",
+        "title": "Stop Cursor Remote Server",
+        "category": "Cursor Remote"
+      },
+      {
+        "command": "cursorRemote.openBrowser",
+        "title": "Open Mobile Interface",
+        "category": "Cursor Remote"
+      },
+      {
+        "command": "cursorRemote.showQR",
+        "title": "Show QR Code",
+        "category": "Cursor Remote"
+      }
+    ],
+    "configuration": {
+      "title": "Cursor Remote",
+      "properties": {
+        "cursorRemote.port": {
+          "type": "number",
+          "default": 8080,
+          "description": "Port for the remote server"
+        },
+        "cursorRemote.autoStart": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically start server when Cursor opens"
+        },
+        "cursorRemote.enableAuth": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable authentication for remote access"
+        },
+        "cursorRemote.theme": {
+          "type": "string",
+          "enum": [
+            "dark",
+            "light",
+            "auto"
+          ],
+          "default": "dark",
+          "description": "Mobile interface theme"
+        }
+      }
+    },
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "cursorRemote.start"
+        },
+        {
+          "command": "cursorRemote.stop"
+        },
+        {
+          "command": "cursorRemote.openBrowser"
+        },
+        {
+          "command": "cursorRemote.showQR"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.2",
+    "@types/node": "16.x",
+    "@types/qrcode": "^1.5.5",
+    "@types/uuid": "^10.0.0",
+    "@types/vscode": "^1.74.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "eslint": "^8.28.0",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "open": "^8.4.0",
+    "qrcode": "^1.5.3",
+    "socket.io": "^4.7.2",
+    "uuid": "^9.0.0"
+  }
+}

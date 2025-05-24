@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cursor Remote - Mobile Coding</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-mobile-alt"></i> Cursor Remote</h1>
+                <div class="header-actions">
+                    <button id="menu-btn" class="btn-icon" title="Menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- File Explorer Panel -->
+            <div id="file-explorer" class="panel">
+                <div class="panel-header">
+                    <h3><i class="fas fa-folder"></i> Files</h3>
+                    <button id="refresh-files-btn" class="btn-icon" title="Refresh">
+                        <i class="fas fa-refresh"></i>
+                    </button>
+                </div>
+                <div class="panel-content">
+                    <div id="file-tree" class="file-tree">
+                        <div class="loading">Loading files...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Editor Panel -->
+            <div id="editor-panel" class="panel editor-panel">
+                <div class="panel-header">
+                    <div class="editor-tabs">
+                        <div id="current-file-tab" class="tab active">
+                            <span class="tab-name">No file selected</span>
+                            <button class="tab-close" title="Close">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="editor-actions">
+                        <button id="save-btn" class="btn btn-primary" disabled title="Save">
+                            <i class="fas fa-save"></i>
+                        </button>
+                        <button id="format-btn" class="btn" disabled title="Format">
+                            <i class="fas fa-magic"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div id="editor-container">
+                        <div id="no-file-message" class="no-file-message">
+                            <i class="fas fa-file-code"></i>
+                            <h3>Select a file to start coding</h3>
+                            <p>Choose a file from the explorer on the left</p>
+                        </div>
+                        <textarea id="code-editor"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Terminal Panel -->
+            <div id="terminal-panel" class="panel terminal-panel">
+                <div class="panel-header">
+                    <h3><i class="fas fa-terminal"></i> Terminal</h3>
+                    <button id="clear-terminal-btn" class="btn-icon" title="Clear">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                <div class="panel-content">
+                    <div id="terminal-output" class="terminal-output"></div>
+                    <div class="terminal-input">
+                        <input type="text" id="terminal-command" placeholder="Enter command..." autocomplete="off">
+                        <button id="execute-btn" class="btn btn-primary">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu">
+            <div class="menu-content">
+                <button class="menu-item" data-action="toggle-explorer">
+                    <i class="fas fa-folder"></i>
+                    <span>Files</span>
+                </button>
+                <button class="menu-item" data-action="toggle-terminal">
+                    <i class="fas fa-terminal"></i>
+                    <span>Terminal</span>
+                </button>
+                <button class="menu-item" data-action="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </button>
+                <button class="menu-item" data-action="about">
+                    <i class="fas fa-info-circle"></i>
+                    <span>About</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Modal for settings -->
+        <div id="settings-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Settings</h3>
+                    <button class="modal-close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="setting-group">
+                        <label for="theme-select">Theme:</label>
+                        <select id="theme-select">
+                            <option value="monokai">Dark (Monokai)</option>
+                            <option value="default">Light</option>
+                            <option value="material">Material</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label for="font-size-select">Font Size:</label>
+                        <select id="font-size-select">
+                            <option value="12">12px</option>
+                            <option value="14" selected>14px</option>
+                            <option value="16">16px</option>
+                            <option value="18">18px</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label>
+                            <input type="checkbox" id="auto-save-checkbox" checked>
+                            Auto-save changes
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading overlay -->
+        <div id="loading-overlay" class="loading-overlay">
+            <div class="spinner"></div>
+            <p>Connecting to Cursor...</p>
+        </div>
+
+        <!-- Toast notifications -->
+        <div id="toast-container" class="toast-container"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/htmlmixed/htmlmixed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/markdown/markdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/edit/matchbrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+    <script src="app.js"></script>
+</body>
+</html> 
