@@ -164,6 +164,10 @@ export class RemoteServer {
 
     async start(): Promise<void> {
         return new Promise((resolve, reject) => {
+            if (this.running) {
+                console.log(`Cursor Remote server is already running on port ${this.port}`);
+                return resolve();
+            }
             try {
                 this.server = this.app.listen(this.port, () => {
                     this.setupSocketIO();
@@ -173,11 +177,21 @@ export class RemoteServer {
                 });
 
                 if (this.server) {
-                    this.server.on('error', (error) => {
-                        reject(error);
+                    this.server.on('error', (error: NodeJS.ErrnoException) => {
+                        console.error(`Server failed to start on port ${this.port}:`, error);
+                        this.running = false;
+                        if (error.code === 'EADDRINUSE') {
+                            reject(new Error(`Port ${this.port} is already in use.`));
+                        } else {
+                            reject(error);
+                        }
                     });
+                } else {
+                    reject(new Error("Server instance was not created."));
                 }
             } catch (error) {
+                console.error("Error during server start setup:", error);
+                this.running = false;
                 reject(error);
             }
         });
